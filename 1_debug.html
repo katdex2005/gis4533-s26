@@ -41,7 +41,8 @@
     <!-- start of our CSS styles -->
     <style>
         h1 {
-            color: white;
+            color: black; 
+    /* Fixed error 2: The color of the title appears black now and does not blend in*/
         }
         .map {
             border: 4px solid red;
@@ -57,20 +58,23 @@
     <div id="map" style="width: 600px; height: 400px;"></div>
     
     <!-- start of our JavaScript code -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!--Fixed error #1: moved the script for leaflet above our script to give L a definition --> 
     <script>
         // Initialize the map
-        let map = L.map('mapElement')
+        let map = L.map('map')
+        // Fixed error #3:fixed the map div element, the ID did not match the ID provided to the leaflet map//
         // Center the map on UMD campus, and set the zoom level
         map.setView([-92.08, 46.82], 15);
         
         // Add OpenStreetMap tiles
-        const tiles = L.tileLayer('https://tile.openstreetmap.orgg/{z}/{x}/{y}.png', {
+        const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            //Fixed error #4: fixed the misspelling for the openstreetmap link//
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
     </script>
         
     <!-- Leaflet JavaScript library -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </body>
 </html>

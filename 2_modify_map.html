@@ -56,9 +56,16 @@
 	    maxZoom: 16
         }).addTo(map);
 
-        // Add a marker for the UMD campus
-        const marker = L.marker([46.82, -92.085]).addTo(map);
-        marker.bindPopup("<b>University of Minnesota Duluth</b><br>A great place to learn about GIS!").openPopup();
+        // Removed the marker for UMD and instead added three coffee shops that I would recommend around Duluth.
+        const marker = L.marker([46.77, -92.12]).addTo(map);
+        marker.bindPopup("<b>190 Coffee and Tea</b><br>This business opened in 2022.").openPopup();
+
+        const marker2 = L.marker([46.7819, -92.0946]).addTo(map);
+        marker2.bindPopup("<b>Naturalight Candles + Coffee</b><br>This business opened in 2024.").openPopup();
+
+        const marker3 = L.marker([46.8104, -92.0829]).addTo(map);
+        marker3.bindPopup("<b>At Sara's Table Chester Creek Cafe</b><br>This business opened in 2002.").openPopup();
+
     </script>
 </body>
 </html>

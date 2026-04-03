@@ -28,9 +28,15 @@
     
     <!-- Leaflet CSS stylesheet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <!--adjusted map styles, added a new background color-->
+    <!--this changes the style of the header and paragraph by changing the color and the font family. Map boarder also added.-->
     <style>
-
+        h1 {
+            color: rgb(108, 170, 178);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h4 {
+            color: rgb(57, 88, 63);
+        }
     </style>
 </head>
 <body>
@@ -38,6 +44,23 @@
     <div class="header">
         <h1>Top 3 Coffee Shops in Duluth, MN</h1>
         <h3>by: Katlyn Dexter</h3>
+        <h4>
+            <p>Duluth, Minnesota has many coffee shops that tourists and locals can enjoy year round. These are my recommended <br> 
+                coffee shops to study or stop at when traveling around Duluth. The coffee shops are open year round and offer a <br>
+                variety of drinks including seasonal drinks. With each coffee shop situated in different locations, grabbing your <br>
+                drink to go and doing some sightseeing would be a great way to explore Duluth.</p>
+            <ul>
+                <li>190 Coffee and Tea: Situated in the Lincoln Park Neighborhood, 190 Coffee and Tea is a popular place for drinks.<br>
+                They are within the Enger Lofts marketplace, so grab your drink of choice and enjoy the adjacent shops.</li>
+                <li>Naturalight Candles + Coffee Bar: Located in Canal Park, Naturalight is a cozy place to grab a coffee before <br>
+                enjoying the sights of the lake walk. The coffee bar is in the DeWitt-Seitz marketplace which has plenty of shops <br>
+                to stop and look at.</li>
+                <li>At Sara's Table Chester Creek Cafe: Located near the University of Minnesota Duluth campus, the cafe is a great<br>
+                place to stop and grab a bite to eat with your drink of choice. Books line the walls so if you need something to do<br>
+                while you sip, theres plenty to read.</li>
+
+            </ul>
+        </h4>
     </div>
     <!--Increased the size of the map to make it larger on the page-->
     <div id="map" style="width: 800px; height: 600px;"></div>
@@ -62,6 +85,13 @@
 
         const marker2 = L.marker([46.7819, -92.0946]).addTo(map);
         marker2.bindPopup("<b>Naturalight Candles + Coffee</b><br>This business opened in 2024.").openPopup();
+
+        //the HTML content for my popup
+        const htmlContent = `
+        <div>
+            <h3>Photo of Naturalight Candles + Coffee Bar</h3>
+            <img> width=150px src= "https://images.squarespace-cdn.com/content/v1/58a32b6fd482e9d74eecd06f/e36f5bbf-ef64-4992-91f4-201b904104f8/tempImageilgxRu.jpg?format=2500w"</img>
+        </div>`;
 
         const marker3 = L.marker([46.8104, -92.0829]).addTo(map);
         marker3.bindPopup("<b>At Sara's Table Chester Creek Cafe</b><br>This business opened in 2002.").openPopup();

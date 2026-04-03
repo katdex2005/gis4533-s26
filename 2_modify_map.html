@@ -40,7 +40,7 @@
     </style>
 </head>
 <body>
-    <!-- Adjusted the header at the top of the page and my name to better match the theme-->
+    <!-- Adjusted the header at the top of the page and my name to better match the theme and made descriptions for the coffee shops.-->
     <div class="header">
         <h1>Top 3 Coffee Shops in Duluth, MN</h1>
         <h3>by: Katlyn Dexter</h3>
@@ -87,14 +87,15 @@
         marker2.bindPopup("<b>Naturalight Candles + Coffee</b><br>This business opened in 2024.").openPopup();
 
         //the HTML content for my popup
-        const htmlContent =` 
-        <div>
-            <h3>Photo of Naturalight Candles + Coffee Bar</h3>
-            <img> width=150px src= "https://images.squarespace-cdn.com/content/v1/58a32b6fd482e9d74eecd06f/e36f5bbf-ef64-4992-91f4-201b904104f8/tempImageilgxRu.jpg?format=2500w"</img>
+        const htmlContent = `
+        <div class="popup">
+            <h3>At Sara's Table Chester Creek Cafe</h3>
+            <img src= "https://www.ridelakesuperior.com/wp-content/uploads/2024/05/astccc-mn.jpg" width="250px"></img>
+            <p>This business opened in 2002.</p>
         </div>`;
 
         const marker3 = L.marker([46.8104, -92.0829]).addTo(map);
-        marker3.bindPopup("<b>At Sara's Table Chester Creek Cafe</b><br>This business opened in 2002.").openPopup();
+        marker3.bindPopup(htmlContent).openPopup();
 
     </script>
 </body>

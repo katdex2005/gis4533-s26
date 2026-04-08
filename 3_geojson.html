@@ -56,23 +56,103 @@
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
-    <style></style>
+    <style>
+       
+    </style>
 </head>
 <body>
-    <div id="map" style="width: 600px; height: 400px;"></div>
+    <!--This is the code for the headers and description.-->
+        <h1>Duluth School Area Attendance</h1>
+        <h2>By: Katlyn Dexter</h2>
+
+    <div id="map" style="width: 800px; height: 600px;"></div>
     
     <!-- Leaflet JavaScript -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
     <script>
+
+        // my geojson supporting functions
+        // these are caleld when the geojson layer is created
+
+        // Source - https://stackoverflow.com/a/1484514
+        // Posted by Anatoliy, modified by community. See post 'Timeline' for change history
+        // Retrieved 2026-04-06, License - CC BY-SA 3.0
+        function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+        }
+
+        // my geojson style function
+        function attendanceAreasStyle() {
+            return {
+                color: "black",
+                weight: 5,
+                fillOpacity: 0.5,
+                //for the fill color we call the getrandomColor
+                fillColor: getRandomColor()
+            }
+        }
+
+        //---------------------------
+        //LeafLet map code starts here
+        //---------------------------
+        // 4. Add Popups to GeoJSON
+
+        // geojson popup function
+        function attendanceAreasOnEachFeature(feature, layer) {
+            // create popup content based on feature properties
+            // each feature contains information on schools belonging to area
+            const popupContent = `
+            <h3>Attendence Area Schools</h3>
+            <p><em>elementary: </em><b>${feature.ELEM_NAME}</b></p>
+            <p><em>middle: </em><b>${feature.MIDD_NAME}</b></p>
+            <p><em>high: </em><b>${feature.HIGH_NAME}</b></p>
+            `;
+
+            // actually call the popup for the layer
+          layer.bindPopup(popupContent);
+        }
+
+
         // Initialize the map, center it on UMD campus, and set the zoom level
-        const map = L.map('map').setView([46.82, -92.08], 13);
+        const map = L.map('map').setView([46.82, -92.08], 11);
 
         // Add OpenStreetMap tiles
         const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
+
+        // 2. Add GeoJSON of Attendence Areas to the map
+
+        //fetch geoJSON file
+        fetch("duluth_school_attendance_areas.json")
+            //once we fetch the geojson we need to convert the response
+            //into a json format
+            .then(function(resp){
+                const responseJSON = resp.json()
+                console.log(responseJSON)
+                //pass along the json to the next function
+                return responseJSON
+            })
+            //take the json data (ourgeojson file's data)
+            //and create a leaflet layer based on that geojson
+            .then(function(geojsonData) {
+                console.log('the geojson data', geojsonData)
+                L.geoJSON(geojsonData, 
+                    {
+                        style: attendanceAreasStyle,
+                        onEachFeature: attendanceAreasOnEachFeature
+                    }
+                ).addTo(map)
+            })
+
+
     </script>
 </body>
 </html>

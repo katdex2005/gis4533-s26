@@ -109,9 +109,9 @@
             // each feature contains information on schools belonging to area
             const popupContent = `
             <h3>Attendence Area Schools</h3>
-            <p><em>elementary: </em><b>${feature.ELEM_NAME}</b></p>
-            <p><em>middle: </em><b>${feature.MIDD_NAME}</b></p>
-            <p><em>high: </em><b>${feature.HIGH_NAME}</b></p>
+            <p><em>elementary: </em><b>${feature.properties.ELEM_NAME}</b></p>
+            <p><em>middle: </em><b>${feature.properties.MIDD_NAME}</b></p>
+            <p><em>high: </em><b>${feature.properties.HIGH_NAME}</b></p>
             `;
 
             // actually call the popup for the layer

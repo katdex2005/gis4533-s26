@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Most Basic Web Map</title>
+    
+    <!-- Leaflet CSS stylesheet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!--this changes the style of the header and paragraph by changing the color and the font family. Map boarder also added.-->
+    <style>
+        h1 {
+            color: rgb(108, 170, 178);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h4 {
+            color: rgb(57, 88, 63);
+        }
+    </style>
+</head>
+<body>
+    <!-- Adjusted the header at the top of the page and my name to better match the theme and made descriptions for the coffee shops.-->
+    <div class="header">
+        <h1>Points of Interest in Duluth, MN</h1>
+        <h3>by: Katlyn Dexter</h3>
+        <h4>
+            <p>Duluth, Minnesota has plenty of attractions to visit while exploring the area. With various landmarks, parks,<br> 
+                resturaunts, museums, and outdoor recreational opportunities, there is something new to look at every day!<br>
+                While attending the FDI World Dental Congress, some locations provide brief entertainment, while others can<br>
+                offer hours worth of activities. Click on each location to learn about what is offered and other details to<br>
+                help plan your outing!<br>
+            </p>
+        </h4>
+    </div>
+    <!--Increased the size of the map to make it larger on the page-->
+    <div id="map" style="width: 800px; height: 600px;"></div>
+    
+    <!-- Leaflet JavaScript library -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <script>
+        
+        // Centered the map to Duluth and modified the zoom level
+        const map = L.map('map').setView([46.78, -92.10], 11);
+
+        // Add OpenStreetMap tiles
+        //Changed the tile layer to Esri.NatGeoWorldMap from the Leaflet catalog of layers //
+       var Esri_NatGeoWorldMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', {
+	    attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',
+	    maxZoom: 16
+        }).addTo(map);
+
+function createPopupContent(title, imageUrl, address, website, description) {
+    return `
+        <div class="popup" style="display: flex; align-items: center; gap: 15px;">
+            <img src="${imageUrl}" width="150px" style="order: 0;" />
+            <div style="order: 1;">
+                <h3>${title}</h3>
+                <p>
+                    <strong>Address:</strong> ${address}<br>
+                    <strong>Website:</strong> <a href="${website}" target="_blank">${website}</a><br>
+                    ${description}
+                </p>
+            </div>
+        </div>
+    `;
+}
+
+const locations = [
+    {
+        title: "Canal Park",
+        imageUrl: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwikitravel.org%2Fupload%2Fshared%2Fd%2Fd5%2FCanal_Park.jpg&f=1&nofb=1&ipt=ffcb1b11b53d56e374e7dad954cea70f9fa22fda1372be3420292a745037c03b",
+        address: "Canal Park, Duluth, MN 55802",
+        website: "https://canalpark.com/",
+        description: "Canal Park is a tourist and recreation-oriented district of Duluth, Minnesota, United States. Situated across the Interstate 35 freeway from Downtown Duluth, it is connected by the famous Aerial Lift Bridge to the Park Point sandbar and neighborhood.",
+        coordinates: [46.784688, -92.095278]
+    },
+    {
+        title: "Aerial Lift Bridge",
+        imageUrl: "https://visitduluth.com/wp-content/uploads/2025/07/bridge-view-1024x767.jpg",
+        address: "601 S Lake Ave, Duluth, MN 55802",
+        website: "https://www.dot.state.mn.us/historicbridges/L6116.html",
+        description: "The Aerial Lift Bridge is a landmark in the port city of Duluth, Minnesota. The span began life in 1905 as the United States' first transporter bridge. In 1929-30, the span was converted to a vertical lift bridge, and continues to operate today.",
+        coordinates: [46.779422, -92.093668]
+    },
+    {
+        title: "Spirit Mountain Recreation Area",
+        imageUrl: "https://realhousewivesofmn.com/wp-content/uploads/2018/03/Screen-Shot-2018-03-14-at-12.00.55-AM-1024x761.png",
+        address: "9500 Spirit Mountain Pl, Duluth, MN 55810",
+        website: "https://www.spiritmt.com/",
+        description: "Recreational mountain featuring wintertime downhill skiing & a summertime adventure park.",
+        coordinates: [46.719225, -92.206600]
+    },
+    {
+        title: "Glensheen Mansion",
+        imageUrl: "https://www.greatlakescruises.com/uploads/1/0/6/4/106440933/glensheen-2_orig.jpg",
+        address: "3300 London Rd, Duluth, MN 55804",
+        website: "https://glensheen.d.umn.edu/",
+        description: "Glensheen, the Historic Congdon Estate is a 20,000 square foot mansion in Duluth, Minnesota, United States, operated by the University of Minnesota Duluth as a historic house museum.",
+        coordinates: [46.815544, -92.051442]
+    },
+    {
+        title: "Great Lakes Aquarium",
+        imageUrl: "https://glaquarium.org/wp-content/uploads/2020/01/Aquarium-drone-photo.jpg",
+        address: "353 Harbor Dr, Duluth, MN 55802",
+        website: "https://glaquarium.org/",
+        description: "The Great Lakes Aquarium opened in 2000 and is located on the Duluth waterfront. A 501 private nonprofit, its mission is to inspire people to explore their connection to Lake Superior and waters of the world.",
+        coordinates: [46.779192, -92.100034]
+    },
+    {
+        title: "Jay Cooke State Park",
+        imageUrl: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/d1/ec/66/beautiful-park.jpg?w=1200&h=1200&s=1",
+        address: "780 MN-210, Carlton, MN 55718",
+        website: "https://www.dnr.state.mn.us/state_parks/jay_cooke/index.html",
+        description: "A state park known for its scenic beauty, hiking trails, and the historic Thomson Bridge.",
+        coordinates: [46.6336, -92.3136]
+    },
+    {
+        title: "North Shore Scenic Railroad",
+        imageUrl: "https://lakesuperiorcircletour.info/wp-content/uploads/2020/12/North-Shore-Scenic-Railroad.jpg",
+        address: "506 W Michigan St, Duluth, MN 55802",
+        website: "http://www.northshorescenicrailroad.org/",
+        description: "Seasonal narrated train tours follow a historic transport corridor for short, long & themed rides.",
+        coordinates: [46.781308, -92.103861]
+    },
+    {
+        title: "Leif Erikson Park",
+        imageUrl: "https://live.staticflickr.com/8446/7816258676_a5778fb704_b.jpg",
+        address: "1301 London Rd, Duluth, MN 55805",
+        website: "https://duluthmn.gov/parks/parks-trails/parks-listing/leif-erikson-park/",
+        description: "Named Leif Erikson Park in 1927, this greenspace located along Lake Superior includes a historic amphitheater and is home to the Duluth Rose Garden.",
+        coordinates: [46.799316, -92.080477]
+    },
+    {  
+        title: "Tweed Museum of Art",
+        imageUrl: "https://www.exploreminnesota.com/sites/default/files/listing_images/169ec22f8d53b6c44d1f35ad88655485f8c7fcbe_20.jpg",
+        address: "1201 Ordean Ct, Duluth, MN 55812",
+        website: "https://tweed.d.umn.edu/",
+        description: "Located on the University of Minnesota Duluth Campus, the Tweed Museum of Art aims to continually improve access for present and future generations through exhibitions, institutional lending, on-request viewing, and digital/online portals.",
+        coordinates: [46.818388, -92.084014]
+    },
+    {
+        title: "Sir Benedicts Tavern on the Lake",
+        imageUrl: "https://images.squarespace-cdn.com/content/v1/5f6e6d93e5464d602d0929d2/1629902008486-M6OO08TA2JEV9OCXFJG5/Sir+Ben%27s.png",
+        address: "805 E Superior St, Duluth, MN 55802",
+        website: "https://www.sirbens.com/",
+        description: "Located on the shore of Lake Superior, Sir Benedicts Tavern serves fresh, gourmet sandwiches and soup, in a English Pub atmosphere. Live music and events are hosted weekly.",
+        coordinates: [46.794925, -92.088337]
+    }
+];
+
+locations.forEach(location => {
+    const htmlContent = createPopupContent(
+        location.title,
+        location.imageUrl,
+        location.address,
+        location.website,
+        location.description
+    );
+
+    const marker = L.marker(location.coordinates).addTo(map);
+    marker.bindPopup(htmlContent);
+});
+
+    </script>
+</body>
+</html>

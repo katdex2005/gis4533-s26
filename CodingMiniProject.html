@@ -24,9 +24,9 @@
         <h1>Points of Interest in Duluth, MN</h1>
         <h3>by: Katlyn Dexter</h3>
         <h4>
-            <p>Duluth, Minnesota has plenty of attractions to visit while exploring the area. With various landmarks, parks,<br> 
+            <p>Duluth, Minnesota, has plenty of attractions to visit while exploring the area. With various landmarks, parks,<br> 
                 resturaunts, museums, and outdoor recreational opportunities, there is something new to look at every day!<br>
-                While attending the FDI World Dental Congress, some locations provide brief entertainment, while others can<br>
+                While attending the FDI World Dental Congress, some locations provide you with brief entertainment, while others can<br>
                 offer hours worth of activities. Click on any of the 10 locations to learn about what is offered and other<br>
                 details to help plan your outing!<br>
             </p>
@@ -49,7 +49,7 @@
 	    attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',
 	    maxZoom: 16
         }).addTo(map);
-
+// This section is setting the custom icons and defining their size and how they appear on the map
 const customIcons = {
     canalPark: L.icon({
         iconUrl: 'https://img.magnific.com/premium-vector/park-icon-isolated-white-background_268104-8604.jpg', 
@@ -112,7 +112,8 @@ const customIcons = {
         popupAnchor: [0, -20] 
         }),
 }
-
+// This section condenses what would otherwise be repeated lines of the same code below.
+// Attributes are defined and a unified photo size
 function createPopupContent(title, imageUrl, address, website, description) {
     return `
         <div class="popup" style="display: flex; align-items: center; gap: 15px;">
@@ -128,7 +129,7 @@ function createPopupContent(title, imageUrl, address, website, description) {
         </div>
     `;
 }
-
+// code for the individual popups for each location.
 const locations = [
     {
         title: "Canal Park",
@@ -222,9 +223,8 @@ const locations = [
     }
 ];
 
-
+// This code creates a marker for each location on the map
 locations.forEach(location => {
-   //const htmlContent = createPopupContent(
 L.marker(location.coordinates, { icon: location.icon })
     .addTo(map)
     .bindPopup(createPopupContent(

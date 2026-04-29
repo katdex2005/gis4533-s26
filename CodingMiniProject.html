@@ -27,13 +27,13 @@
             <p>Duluth, Minnesota has plenty of attractions to visit while exploring the area. With various landmarks, parks,<br> 
                 resturaunts, museums, and outdoor recreational opportunities, there is something new to look at every day!<br>
                 While attending the FDI World Dental Congress, some locations provide brief entertainment, while others can<br>
-                offer hours worth of activities. Click on each location to learn about what is offered and other details to<br>
-                help plan your outing!<br>
+                offer hours worth of activities. Click on any of the 10 locations to learn about what is offered and other<br>
+                details to help plan your outing!<br>
             </p>
         </h4>
     </div>
     <!--Increased the size of the map to make it larger on the page-->
-    <div id="map" style="width: 800px; height: 600px;"></div>
+    <div id="map" style="width: 1000px; height: 600px;"></div>
     
     <!-- Leaflet JavaScript library -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -41,7 +41,7 @@
     <script>
         
         // Centered the map to Duluth and modified the zoom level
-        const map = L.map('map').setView([46.78, -92.10], 11);
+        const map = L.map('map').setView([46.78, -92.10], 10);
 
         // Add OpenStreetMap tiles
         //Changed the tile layer to Esri.NatGeoWorldMap from the Leaflet catalog of layers //
@@ -49,6 +49,69 @@
 	    attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',
 	    maxZoom: 16
         }).addTo(map);
+
+const customIcons = {
+    canalPark: L.icon({
+        iconUrl: 'https://img.magnific.com/premium-vector/park-icon-isolated-white-background_268104-8604.jpg', 
+        iconSize: [20, 20], 
+        iconAnchor: [16, 20], 
+        popupAnchor: [0, -20] 
+        }),
+    liftBridge: L.icon({
+        iconUrl: 'https://i.pinimg.com/736x/f9/58/18/f95818f914844d2b1cf7a45b232061d1.jpg', 
+        iconSize: [20, 20], 
+        iconAnchor: [16, 20], 
+        popupAnchor: [0, -20] 
+        }),
+    spiritMountain: L.icon({
+        iconUrl: 'https://img.icons8.com/ios7/1200/skiing.jpg', 
+        iconSize: [20, 20], 
+        iconAnchor: [16, 20], 
+        popupAnchor: [0, -20] 
+        }),
+    glensheen: L.icon({
+        iconUrl: 'https://static.vecteezy.com/system/resources/thumbnails/006/669/410/small/museum-line-icon-free-vector.jpg', 
+        iconSize: [20, 20], 
+        iconAnchor: [16, 20], 
+        popupAnchor: [0, -20] 
+        }),
+    greatLakes: L.icon({
+        iconUrl: 'https://static.vecteezy.com/system/resources/previews/025/077/898/non_2x/line-art-fish-tank-icon-in-flat-style-vector.jpg', 
+        iconSize: [20, 20], 
+        iconAnchor: [16, 20], 
+        popupAnchor: [0, -20] 
+        }),
+    jayCooke: L.icon({
+        iconUrl: 'https://img.icons8.com/ios7/1200/national-park.jpg', 
+        iconSize: [20, 20], 
+        iconAnchor: [16, 20], 
+        popupAnchor: [0, -20] 
+        }),
+    northRailroad: L.icon({
+        iconUrl: 'https://png.pngtree.com/png-vector/20190515/ourmid/pngtree-train-icon-png-image_1043138.jpg', 
+        iconSize: [20, 20], 
+        iconAnchor: [16, 20], 
+        popupAnchor: [0, -20] 
+        }),
+    leifErikson: L.icon({
+        iconUrl: 'https://www.kindpng.com/picc/m/12-120260_png-file-svg-garden-icon-png-transparent-png.png', 
+        iconSize: [20, 20], 
+        iconAnchor: [16, 20], 
+        popupAnchor: [0, -20] 
+        }),
+    tweedArt: L.icon({
+        iconUrl: 'https://static.vecteezy.com/system/resources/previews/004/596/600/non_2x/exhibition-line-icon-vector.jpg', 
+        iconSize: [20, 20], 
+        iconAnchor: [16, 20], 
+        popupAnchor: [0, -20] 
+        }),
+    sirBens: L.icon({
+        iconUrl: 'https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-sandwich-icon-for-your-project-png-image_1520530.jpg', 
+        iconSize: [20, 20], 
+        iconAnchor: [16, 20], 
+        popupAnchor: [0, -20] 
+        }),
+}
 
 function createPopupContent(title, imageUrl, address, website, description) {
     return `
@@ -73,7 +136,8 @@ const locations = [
         address: "Canal Park, Duluth, MN 55802",
         website: "https://canalpark.com/",
         description: "Canal Park is a tourist and recreation-oriented district of Duluth, Minnesota, United States. Situated across the Interstate 35 freeway from Downtown Duluth, it is connected by the famous Aerial Lift Bridge to the Park Point sandbar and neighborhood.",
-        coordinates: [46.784688, -92.095278]
+        coordinates: [46.784688, -92.095278],
+        icon: customIcons.canalPark
     },
     {
         title: "Aerial Lift Bridge",
@@ -81,7 +145,8 @@ const locations = [
         address: "601 S Lake Ave, Duluth, MN 55802",
         website: "https://www.dot.state.mn.us/historicbridges/L6116.html",
         description: "The Aerial Lift Bridge is a landmark in the port city of Duluth, Minnesota. The span began life in 1905 as the United States' first transporter bridge. In 1929-30, the span was converted to a vertical lift bridge, and continues to operate today.",
-        coordinates: [46.779422, -92.093668]
+        coordinates: [46.779422, -92.093668],
+        icon: customIcons.liftBridge
     },
     {
         title: "Spirit Mountain Recreation Area",
@@ -89,7 +154,8 @@ const locations = [
         address: "9500 Spirit Mountain Pl, Duluth, MN 55810",
         website: "https://www.spiritmt.com/",
         description: "Recreational mountain featuring wintertime downhill skiing & a summertime adventure park.",
-        coordinates: [46.719225, -92.206600]
+        coordinates: [46.719225, -92.206600],
+        icon: customIcons.spiritMountain
     },
     {
         title: "Glensheen Mansion",
@@ -97,7 +163,8 @@ const locations = [
         address: "3300 London Rd, Duluth, MN 55804",
         website: "https://glensheen.d.umn.edu/",
         description: "Glensheen, the Historic Congdon Estate is a 20,000 square foot mansion in Duluth, Minnesota, United States, operated by the University of Minnesota Duluth as a historic house museum.",
-        coordinates: [46.815544, -92.051442]
+        coordinates: [46.815544, -92.051442],
+        icon: customIcons.glensheen
     },
     {
         title: "Great Lakes Aquarium",
@@ -105,7 +172,8 @@ const locations = [
         address: "353 Harbor Dr, Duluth, MN 55802",
         website: "https://glaquarium.org/",
         description: "The Great Lakes Aquarium opened in 2000 and is located on the Duluth waterfront. A 501 private nonprofit, its mission is to inspire people to explore their connection to Lake Superior and waters of the world.",
-        coordinates: [46.779192, -92.100034]
+        coordinates: [46.779192, -92.100034],
+        icon: customIcons.greatLakes
     },
     {
         title: "Jay Cooke State Park",
@@ -113,7 +181,8 @@ const locations = [
         address: "780 MN-210, Carlton, MN 55718",
         website: "https://www.dnr.state.mn.us/state_parks/jay_cooke/index.html",
         description: "A state park known for its scenic beauty, hiking trails, and the historic Thomson Bridge.",
-        coordinates: [46.6336, -92.3136]
+        coordinates: [46.6336, -92.3136],
+        icon: customIcons.jayCooke
     },
     {
         title: "North Shore Scenic Railroad",
@@ -121,7 +190,8 @@ const locations = [
         address: "506 W Michigan St, Duluth, MN 55802",
         website: "http://www.northshorescenicrailroad.org/",
         description: "Seasonal narrated train tours follow a historic transport corridor for short, long & themed rides.",
-        coordinates: [46.781308, -92.103861]
+        coordinates: [46.781308, -92.103861],
+        icon: customIcons.northRailroad
     },
     {
         title: "Leif Erikson Park",
@@ -129,7 +199,8 @@ const locations = [
         address: "1301 London Rd, Duluth, MN 55805",
         website: "https://duluthmn.gov/parks/parks-trails/parks-listing/leif-erikson-park/",
         description: "Named Leif Erikson Park in 1927, this greenspace located along Lake Superior includes a historic amphitheater and is home to the Duluth Rose Garden.",
-        coordinates: [46.799316, -92.080477]
+        coordinates: [46.799316, -92.080477],
+        icon: customIcons.leifErikson
     },
     {  
         title: "Tweed Museum of Art",
@@ -137,7 +208,8 @@ const locations = [
         address: "1201 Ordean Ct, Duluth, MN 55812",
         website: "https://tweed.d.umn.edu/",
         description: "Located on the University of Minnesota Duluth Campus, the Tweed Museum of Art aims to continually improve access for present and future generations through exhibitions, institutional lending, on-request viewing, and digital/online portals.",
-        coordinates: [46.818388, -92.084014]
+        coordinates: [46.818388, -92.084014],
+        icon: customIcons.tweedArt
     },
     {
         title: "Sir Benedicts Tavern on the Lake",
@@ -145,21 +217,23 @@ const locations = [
         address: "805 E Superior St, Duluth, MN 55802",
         website: "https://www.sirbens.com/",
         description: "Located on the shore of Lake Superior, Sir Benedicts Tavern serves fresh, gourmet sandwiches and soup, in a English Pub atmosphere. Live music and events are hosted weekly.",
-        coordinates: [46.794925, -92.088337]
+        coordinates: [46.794925, -92.088337],
+        icon: customIcons.sirBens
     }
 ];
 
+
 locations.forEach(location => {
-    const htmlContent = createPopupContent(
+   //const htmlContent = createPopupContent(
+L.marker(location.coordinates, { icon: location.icon })
+    .addTo(map)
+    .bindPopup(createPopupContent(
         location.title,
         location.imageUrl,
         location.address,
         location.website,
         location.description
-    );
-
-    const marker = L.marker(location.coordinates).addTo(map);
-    marker.bindPopup(htmlContent);
+    ));
 });
 
     </script>
